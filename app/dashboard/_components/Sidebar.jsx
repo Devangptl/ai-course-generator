@@ -44,10 +44,10 @@ const Sidebar = () => {
     <div className='fixed h-full p-5 shadow-md md:w-64'>
       <div className='flex items-center justify-center'>
         <Link href={"/"}>
-          <Image src={"/logo.png"} width={110} height={100} />
+          <Image src={"/logo2.png"} width={147} height={100} className='drop-shadow-2xl' />
         </Link>
       </div>
-      <hr className='my-5' />
+      <hr className='my-3' />
 
       <div>
         {
