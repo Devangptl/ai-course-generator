@@ -24,7 +24,6 @@ import { HiOutlineTrash } from 'react-icons/hi2'
 const DropdownOption = ({ children, handleOnDelete }) => {
     const [openAlert , setOpenAlert] = useState(false)
 
-
     return (
 
         <div>
