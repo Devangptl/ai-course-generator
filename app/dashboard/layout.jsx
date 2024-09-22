@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import Slidebar from './_components/Sidebar'
 import Header from './_components/Header'
 import { UserCourseListContext } from '../_contax/UserCourseListContext'
+import Footer from '../_components/Footer'
 
 const DashboardLayout = ({ children }) => {
 
@@ -21,6 +22,7 @@ const DashboardLayout = ({ children }) => {
                     <div className='p-10'>
                         {children}
                     </div>
+                    <Footer/>
                 </div>
             </div>
         </UserCourseListContext.Provider>

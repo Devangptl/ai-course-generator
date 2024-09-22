@@ -11,6 +11,7 @@ const UserCourseList = () => {
 
     const [courseList, setCourseList] = useState([])
     const { userCourseList, setUserCourseList } = useContext(UserCourseListContext)
+  
 
     const { user } = useUser()
 
@@ -19,12 +20,14 @@ const UserCourseList = () => {
     }, [user])
 
     const getUserCourses = async () => {
+        
         const result = await db.select().from(CourseList)
             .where(eq(CourseList?.createdBy, user?.primaryEmailAddress?.emailAddress))
 
-        console.log(result);
+        // console.log(result);
         setCourseList(result)
         setUserCourseList(result)
+       
     }
 
     return (

@@ -12,6 +12,7 @@ import { GenerateChapterContent_AI } from '@/configs/AiModel'
 import LoadingDialog from '../_components/LoadingDialog'
 import service from '@/configs/service'
 import { useRouter } from 'next/navigation'
+import { toast } from 'sonner'
 
 const CourseLayout = ({ params }) => {
 
@@ -29,7 +30,7 @@ const CourseLayout = ({ params }) => {
     const GetCourse = async () => {
         const result = await db.select().from(CourseList)
             .where(and(eq(CourseList.courseId, params?.courseId), eq(CourseList?.createdBy, user?.primaryEmailAddress?.emailAddress)))
-
+            toast.success("Generate course content successfully");
         setCourse(result[0])
 
     }
@@ -51,7 +52,7 @@ const CourseLayout = ({ params }) => {
 
                 })
 
-                console.log(videoId);
+                // console.log(videoId);
                 
 
                 const result = await GenerateChapterContent_AI.sendMessage(PROMPT)
@@ -89,9 +90,9 @@ const CourseLayout = ({ params }) => {
             </h2>
 
             <LoadingDialog loading={loading} />
-            <CourseBasicInfo course={course} refreshData={() => GetCourse()} />
-            <CourseDetails course={course} />
-            <ChapterList course={course} refreshData={() => GetCourse()} />
+            <CourseBasicInfo course={course} refreshData={() => GetCourse() } loading={loading}  />
+            <CourseDetails course={course} loading={loading} />
+            <ChapterList course={course} refreshData={() => GetCourse()} loading={loading} />
 
             <Button onClick={GererateChapterContent} className="my-10 bg-[#0b9da5] hover:bg-[#0a7e85] ">Generate Course Content</Button>
 

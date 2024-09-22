@@ -10,6 +10,7 @@ import { Button } from '@/components/ui/button'
 import { HiMiniChevronLeft, HiMiniChevronRight } from "react-icons/hi2";
 import Image from 'next/image'
 import Header from '@/app/dashboard/_components/Header'
+import Footer from '@/app/_components/Footer'
 
 
 const CourseStart = ({ params }) => {
@@ -95,15 +96,23 @@ const CourseStart = ({ params }) => {
                         </div>
 
                     </div>
+
                 </div>
-                    : <div className='flex flex-col items-start gap-4 p-10 px-20 '>
+                    :
+                    <div>
+                        <div className='fixed w-[calc(100%-288px)] bg-cyan-200 bg-opacity-75 z-[10] shadow-lg'>
+                            <Header />
+                        </div>
+                        <div className='flex flex-col items-start gap-4 p-10 px-20 pt-[100px]'>
 
-                        <Image className='w-full rounded-md ' src={course?.courseBanner} width={600} height={200} />
-                        <p className='text-xl font-semibold '>{course?.courseOutput?.course_name}</p>
+                            <Image className='w-full rounded-md ' src={course?.courseBanner} width={600} height={200} alt='course banner' />
+                            <p className='text-xl font-semibold '>{course?.courseOutput?.course_name}</p>
 
-                        <Button className="" onClick={() => { setSelectChapter(course?.courseOutput?.chapters[indexId + 1]); GetSelectedChapterContent(indexId + 1) }}>
-                            Start the course
-                        </Button>
+                            <Button className="" onClick={() => { setSelectChapter(course?.courseOutput?.chapters[indexId + 1]); GetSelectedChapterContent(indexId + 1) }}>
+                                Start the course
+                            </Button>
+                        </div>
+                        <Footer />
                     </div>
                 }
             </div>

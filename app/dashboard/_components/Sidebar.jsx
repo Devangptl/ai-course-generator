@@ -44,7 +44,7 @@ const Sidebar = () => {
     <div className='fixed h-full p-5 shadow-md md:w-64'>
       <div className='flex items-center justify-center'>
         <Link href={"/"}>
-          <Image src={"/logo2.png"} width={147} height={100} className='drop-shadow-2xl' />
+          <Image src={"/logo2.png"} width={147} height={100} alt='logo' className='drop-shadow-2xl' />
         </Link>
       </div>
       <hr className='my-3' />
@@ -52,7 +52,7 @@ const Sidebar = () => {
       <div>
         {
           Menu.map((item, index) => (
-            <Link href={item.path}>
+            <Link href={item.path} key={index}>
               <div className={`${item.path == path && "bg-gray-100 text-black"} flex items-center gap-2 text-gray-600 p-3 cursor-pointer hover:bg-gray-100 hover:text-black rounded-md m-3`} >
                 <div className='md:text-2xl'>{item.icon}</div>
                 <div>{item.name}</div>

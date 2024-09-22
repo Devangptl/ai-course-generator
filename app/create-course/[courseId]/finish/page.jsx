@@ -9,13 +9,14 @@ import CourseBasicInfo from '../_components/CourseBasicInfo'
 import { HiOutlineClipboardDocumentCheck } from 'react-icons/hi2'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
+import { toast } from 'sonner'
 
 const FinishScreen = ({ params }) => {
 
   const { user } = useUser()
 
   const [course, setCourse] = useState([])
-  const router = useRouter()
+
   // console.log(course);
 
 
@@ -25,7 +26,7 @@ const FinishScreen = ({ params }) => {
   const GetCourse = async () => {
     const result = await db.select().from(CourseList)
       .where(and(eq(CourseList.courseId, params?.courseId), eq(CourseList?.createdBy, user?.primaryEmailAddress?.emailAddress)))
-
+    toast.success("Course Generate successfully");
     setCourse(result[0])
 
   }
@@ -38,9 +39,9 @@ const FinishScreen = ({ params }) => {
       <h2 className='mt-3'>Course URL:</h2>
       <h2 className='flex items-center justify-between p-2 mb-3 text-gray-400 border rounded'>{process.env.NEXT_PUBLIC_HOST_NAME}course/{course?.courseId} <HiOutlineClipboardDocumentCheck className='hover:text-[#0b9da5] cursor-pointer h-5 w-5' onClick={async () => await navigator.clipboard.writeText(process.env.NEXT_PUBLIC_HOST_NAME + "course/" + course?.courseId)} /> </h2>
       <div className='flex items-center justify-between '>
-      
-      <Link href={"/dashboard"}> <Button className="">Home</Button></Link>
-      <Link target='_blank' href={`${process.env.NEXT_PUBLIC_HOST_NAME}course/${course?.courseId}`}> <Button className="">Go to Your Course </Button></Link>
+
+        <Link href={"/dashboard"}> <Button className="">Home</Button></Link>
+        <Link target='_blank' href={`${process.env.NEXT_PUBLIC_HOST_NAME}course/${course?.courseId}`}> <Button className="">Go to Your Course </Button></Link>
       </div>
     </div>
   )

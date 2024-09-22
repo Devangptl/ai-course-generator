@@ -1,6 +1,7 @@
 import { Inter , Outfit } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider, GoogleOneTap } from "@clerk/nextjs";
+import { Toaster } from "sonner";
 
 const inter = Outfit({ subsets: ["latin"] });
 
@@ -15,6 +16,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
     <GoogleOneTap />
       <body className={inter.className}>{children}</body>
+      <Toaster position="top-right" richColors />
     </html>
     </ClerkProvider>
   );

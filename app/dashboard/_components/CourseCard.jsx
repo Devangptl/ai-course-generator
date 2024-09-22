@@ -28,7 +28,7 @@ const CourseCard = ({ course, refreshData, dissplayUser = false }) => {
 
     return (
         <div className='p-2 transition-all duration-300 border rounded-lg shadow-sm cursor-pointer hover:border-primary hover:shadow-lg'>
-            <Link href={"/course/" + course?.courseId}> <Image src={course?.courseBanner} width={300} height={200} className='w-full h-[200px] object-cover rounded-lg ' /></Link>
+            <Link href={"/course/" + course?.courseId}> <Image src={course?.courseBanner} width={300} height={200} alt='course banner' className='w-full h-[200px] object-cover rounded-lg ' /></Link>
             <div className='flex flex-col gap-2 p-2'>
                 <div className='flex items-center justify-between gap-2 text-lg font-medium '> <h2 className='truncate'>{course?.courseOutput?.course_name}</h2>
                      {!dissplayUser&& <span> <DropdownOption handleOnDelete={() => { handleOnDelete() }}> <HiMiniEllipsisVertical /></DropdownOption> </span>}
@@ -49,7 +49,7 @@ const CourseCard = ({ course, refreshData, dissplayUser = false }) => {
                 {
                     dissplayUser &&
                     <div className='flex items-center gap-2'>
-                        <Image className='w-8 h-8 rounded-full' src={course?.userProfileImage} width={35} height={35} alt='' />
+                        <Image className='w-8 h-8 rounded-full' src={course?.userProfileImage} width={35} height={35} alt={course?.userProfileImage} />
                         <h2 className='text-sm'>{course?.userName}</h2>
                     </div>
                 }

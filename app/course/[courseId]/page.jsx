@@ -1,4 +1,5 @@
 "use client"
+import Footer from '@/app/_components/Footer'
 import Header from '@/app/_components/Header'
 import ChapterList from '@/app/create-course/[courseId]/_components/ChapterList'
 import CourseBasicInfo from '@/app/create-course/[courseId]/_components/CourseBasicInfo'
@@ -31,6 +32,7 @@ const Course = ({ params }) => {
                 <CourseDetails course={course}/>
                 <ChapterList course={course} edit={false}/>
             </div>
+            <Footer/>
         </div>
     )
 }

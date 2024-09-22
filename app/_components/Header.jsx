@@ -6,7 +6,7 @@ import React from 'react'
 const Header = () => {
   return (
     <div className='flex items-center justify-between p-5 shadow-sm '>
-      <Image src={"/logo2.png"} width={200}  height={100}/>
+      <Image src={"/logo2.png"} width={200}  height={100} alt='logo icon'/>
       <Link href={"/dashboard"} >
         <Button>Get Started</Button>
       </Link>

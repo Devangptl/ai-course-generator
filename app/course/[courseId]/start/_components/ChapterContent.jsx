@@ -2,7 +2,6 @@ import React from 'react'
 import YouTube from 'react-youtube'
 import ReactMarkdown from 'react-markdown'
 import { CopyBlock, dracula } from 'react-code-blocks';
-import { Button } from '@/components/ui/button';
 
 
 const opts = {
@@ -13,7 +12,7 @@ const opts = {
     },
 }
 
-const ChapterContent = ({ chapter, content ,indexId }) => {
+const ChapterContent = ({ chapter, content  }) => {
 
     return (
         <div className='p-10 '>
@@ -22,23 +21,22 @@ const ChapterContent = ({ chapter, content ,indexId }) => {
 
             {/* video */}
             <div className='flex items-center justify-center my-6'>
-                <YouTube videoId={content?.videoId} opts={opts} />
+                <YouTube videoId={content?.videoId} opts={opts}  />
             </div>
             {/* content */}
             <div>
                 {content?.content?.map((item, index) => (
-                    <div className='p-5 mb-3 rounded-lg bg-sky-50'>
+                    <div key={index} className='p-5 mb-3 rounded-lg bg-sky-50'>
                         <h2 className='text-lg font-medium'>{item?.title}</h2>
                         {/* <p className='whitespace-pre-wrap '> {item?.explanation} </p> */}
                         <ReactMarkdown>{item?.explanation}</ReactMarkdown>
                         {
                             item.code && <div className='my-3 '>
                                 <CopyBlock
-                                    text={item.code}
+                                    text={item?.code}
                                     showLineNumbers={true}
                                     theme={dracula}
-                                // wrapLines
-                                codeBlock
+                                    codeBlock
                                 />
                             </div>
                         }

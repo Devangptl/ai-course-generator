@@ -2,6 +2,7 @@
 import React, { useState } from 'react'
 import Header from '../dashboard/_components/Header'
 import { UserInputContext } from '../_contax/UserInputContext'
+import Footer from '../_components/Footer'
 
 const CreateCourseLayout = ({ children }) => {
     const [userCourseInput ,setUserCourseInput ] = useState([])
@@ -11,6 +12,7 @@ const CreateCourseLayout = ({ children }) => {
                 <>
                     <Header />
                     {children}
+                    <Footer/>
                 </>
             </UserInputContext.Provider>
         </div>

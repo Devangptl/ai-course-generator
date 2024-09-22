@@ -43,7 +43,7 @@ const CreateCourse = () => {
     const router = useRouter()
 
     useEffect(() => {
-        console.log(userCourseInput);
+        // console.log(userCourseInput);
 
     }, [userCourseInput])
 
@@ -108,7 +108,7 @@ const CreateCourse = () => {
                 <div className='flex mt-10'>
                     {
                         StepperOptions.map((item, index) => (
-                            <div className='flex items-center'>
+                            <div key={index} className='flex items-center'>
                                 <div className='flex flex-col items-center w-[50px] md:w-[100px]'>
                                     <div className={`p-3 text-white  rounded-full ${activeIndex >= index ? "bg-black" : "bg-gray-200" }`} >
                                         {item.icon}
