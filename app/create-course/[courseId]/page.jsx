@@ -13,6 +13,7 @@ import LoadingDialog from '../_components/LoadingDialog'
 import service from '@/configs/service'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
+import emailjs from '@emailjs/browser';
 
 const CourseLayout = ({ params }) => {
 
@@ -30,7 +31,7 @@ const CourseLayout = ({ params }) => {
     const GetCourse = async () => {
         const result = await db.select().from(CourseList)
             .where(and(eq(CourseList.courseId, params?.courseId), eq(CourseList?.createdBy, user?.primaryEmailAddress?.emailAddress)))
-            toast.success("Generate course content successfully");
+        toast.success("Generate course content successfully");
         setCourse(result[0])
 
     }
@@ -53,7 +54,7 @@ const CourseLayout = ({ params }) => {
                 })
 
                 // console.log(videoId);
-                
+
 
                 const result = await GenerateChapterContent_AI.sendMessage(PROMPT)
                 // console.log(result);
@@ -65,8 +66,23 @@ const CourseLayout = ({ params }) => {
                     content: content,
                     videoId: videoId
                 })
+                
+                var templateParams = {
+                    to_name:user?.fullName ,
+                    from_name: 'aicoursegenerator@gmail.com',
+                    message:`Congrats! Your course generate Successfully \n Your course Link : ${process.env.NEXT_PUBLIC_HOST_NAME}course/${course?.courseId} `
+                  };
+                  
+                emailjs.send('service_q388cf8', 'template_dojcize', templateParams ,{publicKey: '0wEqZMEab4P5338jF',}).then(
+                    (response) => {
+                      
+                    },
+                    (error) => {
+                      console.log('FAILED...', error);
+                    },
+                  );
 
-               
+
             } catch (error) {
                 setLoading(false)
                 console.log((error));
@@ -90,7 +106,7 @@ const CourseLayout = ({ params }) => {
             </h2>
 
             <LoadingDialog loading={loading} />
-            <CourseBasicInfo course={course} refreshData={() => GetCourse() } loading={loading}  />
+            <CourseBasicInfo course={course} refreshData={() => GetCourse()} loading={loading} />
             <CourseDetails course={course} loading={loading} />
             <ChapterList course={course} refreshData={() => GetCourse()} loading={loading} />
 

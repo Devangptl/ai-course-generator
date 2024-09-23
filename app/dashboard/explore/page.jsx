@@ -19,7 +19,7 @@ const Explore = () => {
   const GetCourse = async () => {
     const res = await db.select().from(CourseList)
       .limit(9)
-      .offset(pageIndex*9)
+      .offset(pageIndex * 9)
 
 
     setAllCourse(res)
@@ -40,14 +40,14 @@ const Explore = () => {
               :
               userCourseList.map((item, index) => (
                 <div key={index} className='w-full rounded-lg bg-slate-200 animate-pulse h-[200px]'>
-                    
+
                 </div>
               ))
           }
         </div>
         <div className='flex items-center justify-between'>
-          {pageIndex!=0&&<Button onClick={()=>setPageIndex(pageIndex-1)}>Previous Page</Button>}
-           {allCourse?.length==2 && <Button onClick={()=>setPageIndex(pageIndex+1)}>Next Page</Button>} 
+          {pageIndex != 0 && <Button onClick={() => setPageIndex(pageIndex - 1)}>Previous Page</Button>}
+           {allCourse.length<10 &&<Button disable={true} onClick={() => setPageIndex(pageIndex + 1)}>Next Page</Button>}
         </div>
       </div>
     </div>
