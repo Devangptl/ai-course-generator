@@ -5,7 +5,6 @@ import React, { useContext, useEffect, useState } from 'react'
 import CourseCard from '../_components/CourseCard'
 import { UserCourseListContext } from '@/app/_contax/UserCourseListContext'
 import { Button } from '@/components/ui/button'
-import Filtter from "@/app/dashboard/explore/_componets/Filtter";
 import {
   Select,
   SelectContent,
@@ -20,7 +19,6 @@ const Explore = () => {
 
   const [allCourse, setAllCourse] = useState([])
   const { userCourseList, setUserCourseList } = useContext(UserCourseListContext)
-  const [pageIndex, setPageIndex] = useState(0)
   const [limitData ,setlimitData] = useState(9)
   const [category,setCategory] = useState("")
 
