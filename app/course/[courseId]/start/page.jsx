@@ -26,7 +26,6 @@ const CourseStart = ({ params }) => {
 
     }, [indexId])
 
-
     const GetCourse = async () => {
         const res = await db.select().from(CourseList)
             .where(eq(CourseList?.courseId, params?.courseId))

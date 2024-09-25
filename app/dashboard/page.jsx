@@ -8,7 +8,6 @@ const page = () => {
     <div>
        <AddCourse/>
        <UserCourseList/>
-       
     </div>
   )
 }
