@@ -11,10 +11,14 @@ import { CourseList } from '@/configs/schema';
 import { eq } from 'drizzle-orm';
 import Link from 'next/link';
 import { toast } from 'sonner';
+import { FaLinkedin } from "react-icons/fa6";
+import { FaXTwitter } from "react-icons/fa6";
+import { BsFacebook } from "react-icons/bs";
 
 const CourseBasicInfo = ({ course, refreshData, edit = true, loading }) => {
     // console.log(course);
-
+    let params = `scrollbars=no,resizable=no,status=no,location=no,toolbar=no,menubar=no,
+width=0,height=0,left=-1000,top=-1000`;
     const [selectedFile, setSelectedFile] = useState()
 
     useEffect(() => {
@@ -69,6 +73,24 @@ const CourseBasicInfo = ({ course, refreshData, edit = true, loading }) => {
                         <Image src={selectedFile ? selectedFile : "/placeholder.png"} width={300} height={300} alt={"placeholder"} className='  h-[250px] cursor-pointer rounded-xl object-cover  w-full ' />
                     </label>
                     <input type='file' disabled={edit ? "" : "disabled"} id='upload-image' className='opacity-0' onChange={onFileSelected} />
+                    {!edit && <div className={"flex items-center justify-center gap-4 text-[20px]"}>
+                        <p className={"font-medium  text-[#0b9da5] mr-5"}>Share your course : </p>
+                        <button
+                            className={"hover:text-primary duration-300 text-[24px]"}
+                            onClick={() => window.open(`https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(window.location.href)}&title=${encodeURIComponent(course?.courseOutput?.course_name)}`, 'test', params)}
+                            href={""}><FaLinkedin />
+                        </button>
+                        <button
+                            className={"hover:text-primary duration-300 text-[24px]"}
+                            onClick={() => window.open(`https://twitter.com/intent/tweet?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent(course?.courseOutput?.course_name)}&via=YourTwitterHandle`, 'test', params)}
+                            href={""}><FaXTwitter />
+                        </button>
+                        <button
+                            className={"hover:text-primary duration-300 text-[24px]"}
+                            onClick={() => window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}&quote=${encodeURIComponent(course?.courseOutput?.course_name)}`, 'test', params)}
+                            href={""}><BsFacebook />
+                        </button>
+                    </div>}
                 </div>
             </div>
         </div>
