@@ -11,7 +11,6 @@ const UserCourseList = () => {
 
     const [courseList, setCourseList] = useState([])
     const { userCourseList, setUserCourseList } = useContext(UserCourseListContext)
-  
 
     const { user } = useUser()
 

@@ -10,8 +10,6 @@ export const AddCourse = () => {
     const { user } = useUser()
     const {userCourseList , setUserCourseList} = useContext(UserCourseListContext)
 
-
-
     return (
         <div className='flex items-center justify-between'>
             <div>

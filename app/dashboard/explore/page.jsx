@@ -12,41 +12,26 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import {ilike} from "drizzle-orm";
-
+import {eq} from "drizzle-orm";
 
 const Explore = () => {
 
   const [allCourse, setAllCourse] = useState([])
+  const [category,setCategory] = useState("All")
   const { userCourseList, setUserCourseList } = useContext(UserCourseListContext)
   const [limitData ,setlimitData] = useState(9)
-  const [category,setCategory] = useState("")
-
+  const handleSelect = (value) => {
+    setCategory(value);// Log the selected value
+  };
 
   useEffect(() => {
+    const GetCourse = async () => {
+      const res = await db.select().from(CourseList).where(category === "All" ? "" : eq(CourseList.category,category))
+          .limit(limitData)
+      setAllCourse(res)
+    }
     GetCourse()
-    searchCourse(category);
   }, [limitData,category])
-
-  const GetCourse = async () => {
-    const res = await db.select().from(CourseList)
-      .limit(limitData)
-
-    console.log(limitData)
-
-    setAllCourse(res)
-    // console.log(res);
-  }
-
-  const searchCourse = async (query)=>{
-    const res = await db.select().from(CourseList).where(query ? ilike(CourseList.category, query) : undefined);
-    console.log(res)
-  }
-  const onChange = (e) =>{
-    const val = e.target.value
-    setCategory(val)
-    console.log(category)
-  }
 
   return (
     <div>
@@ -56,14 +41,15 @@ const Explore = () => {
         <div className='sticky flex items-center gap-3 p-4 transition-all bg-white shadow-md  top-16 bg-opacity-65 px-7'>
           Filtter
           <div>
-            <Select>
-              <SelectTrigger className="w-[180px] outline-none ">
-                <SelectValue onChange={(e)=>onChange(e)} placeholder="All"/>
+            <Select onValueChange={handleSelect}>
+              <SelectTrigger  className="w-[180px] outline-none ">
+                <SelectValue value={category} placeholder="All"/>
               </SelectTrigger>
-              <SelectContent>
-                <SelectItem  onChange={(e)=>onChange(e)} value="programming">Programming</SelectItem>
-                <SelectItem onChange={(e)=>onChange(e)}  value="health">Health</SelectItem>
-                <SelectItem  onChange={(e)=>onChange(e)} value="creative">Creative</SelectItem>
+              <SelectContent >
+                <SelectItem value="Programming">Programming</SelectItem>
+                <SelectItem value="Health">Health</SelectItem>
+                <SelectItem value="Creative">Creative</SelectItem>
+                <SelectItem value="All">All</SelectItem>
               </SelectContent>
             </Select>
           </div>
