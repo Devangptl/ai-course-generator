@@ -14,18 +14,14 @@ import { toast } from 'sonner';
 import { FaLinkedin } from "react-icons/fa6";
 import { FaXTwitter } from "react-icons/fa6";
 import { BsFacebook } from "react-icons/bs";
+import UserResponse from '@/app/_components/UserResponse';
 
-const CourseBasicInfo = ({ course, refreshData, edit = true, loading }) => {
+const CourseBasicInfo = ({ course, refreshData, edit = true, loading, courseCount }) => {
     // console.log(course);
     let params = `scrollbars=no,resizable=no,status=no,location=no,toolbar=no,menubar=no,
 width=0,height=0,left=-1000,top=-1000`;
     const [selectedFile, setSelectedFile] = useState()
-
-    useEffect(() => {
-        if (course) {
-            setSelectedFile(course?.courseBanner)
-        }
-    }, [course])
+    const [courseViewsCount, setCourseViewsCount] = useState(course)
 
     const onFileSelected = async (event) => {
 
@@ -48,9 +44,18 @@ width=0,height=0,left=-1000,top=-1000`;
                 }).where(eq(CourseList.id, course?.id))
             })
         })
-
-
     }
+
+    const updateViews = async () => {
+        await db.update(CourseList).set({ courseViews: courseViewsCount }).where(eq(CourseList.id, course?.id))
+    }
+
+    useEffect(() => {
+        setCourseViewsCount(courseCount + 1);
+        if (course) {
+            setSelectedFile(course?.courseBanner)
+        }
+    }, [course])
 
     return (
         <div className='p-10 mt-10 border shadow-sm rounded-xl'>
@@ -60,7 +65,7 @@ width=0,height=0,left=-1000,top=-1000`;
                     <p className='mt-3 text-sm text-gray-400 '>{course?.courseOutput?.description}</p>
                     <h2 className='flex items-center gap-2 mt-2 font-medium  text-[#0b9da5]'> <HiOutlinePuzzlePiece /> {course?.category}</h2>
                     {!edit && <Link href={"/course/" + course?.courseId + "/start"}>
-                        <Button className="w-full mt-5 bg-[#0b9da5] hover:bg-[#0a7e85]" >Start</Button>
+                        <Button onClick={updateViews} className="w-full mt-5 bg-[#0b9da5] hover:bg-[#0a7e85]" >Start</Button>
                     </Link>}
                 </div>
                     :
@@ -73,23 +78,31 @@ width=0,height=0,left=-1000,top=-1000`;
                         <Image src={selectedFile ? selectedFile : "/placeholder.png"} width={300} height={300} alt={"placeholder"} className='  h-[250px] cursor-pointer rounded-xl object-cover  w-full ' />
                     </label>
                     <input type='file' disabled={edit ? "" : "disabled"} id='upload-image' className='opacity-0' onChange={onFileSelected} />
-                    {!edit && <div className={"flex items-center justify-center gap-4 text-[20px]"}>
-                        <p className={"font-medium  text-[#0b9da5] mr-5"}>Share your course : </p>
-                        <button
-                            className={"hover:text-primary duration-300 text-[24px]"}
-                            onClick={() => window.open(`https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(window.location.href)}&title=${encodeURIComponent(course?.courseOutput?.course_name)}`, 'test', params)}
-                            href={""}><FaLinkedin />
-                        </button>
-                        <button
-                            className={"hover:text-primary duration-300 text-[24px]"}
-                            onClick={() => window.open(`https://twitter.com/intent/tweet?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent(course?.courseOutput?.course_name)}&via=YourTwitterHandle`, 'test', params)}
-                            href={""}><FaXTwitter />
-                        </button>
-                        <button
-                            className={"hover:text-primary duration-300 text-[24px]"}
-                            onClick={() => window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}&quote=${encodeURIComponent(course?.courseOutput?.course_name)}`, 'test', params)}
-                            href={""}><BsFacebook />
-                        </button>
+                    {!edit && <div className={"flex items-center justify-between gap-4 text-[20px]"}>
+                        <div className='flex items-center justify-center gap-4 text-[18px]'>
+                            <p className={"font-medium  text-[#0b9da5]"}>Share your course : </p>
+                            <button
+                                className={"hover:text-primary duration-300 text-[20px]"}
+                                onClick={() => window.open(`https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(window.location.href)}&title=${encodeURIComponent(course?.courseOutput?.course_name)}`, 'test', params)}
+                                href={""}><FaLinkedin />
+                            </button>
+                            <button
+                                className={"hover:text-primary duration-300 text-[20px]"}
+                                onClick={() => window.open(`https://twitter.com/intent/tweet?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent(course?.courseOutput?.course_name)}&via=YourTwitterHandle`, 'test', params)}
+                                href={""}><FaXTwitter />
+                            </button>
+                            <button
+                                className={"hover:text-primary duration-300 text-[20px]"}
+                                onClick={() => window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}&quote=${encodeURIComponent(course?.courseOutput?.course_name)}`, 'test', params)}
+                                href={""}><BsFacebook />
+                            </button>
+                        </div>
+                        <div className='flex items-center gap-5 '>
+                            <div className='pt-2 '>
+                                <UserResponse courseId={course?.courseId} />
+                            </div>
+                            <p className='text-primary text-md'>{courseCount === NaN ? 0 : courseCount} <span className='text-sm text-black'>views</span></p>
+                        </div>
                     </div>}
                 </div>
             </div>

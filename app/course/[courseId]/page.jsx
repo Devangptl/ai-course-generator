@@ -28,7 +28,7 @@ const Course = ({ params }) => {
         <div>
             <Header />
             <div className='px-10 md:px-20 lg:px-44'>
-                <CourseBasicInfo course={course} edit={false} />
+                <CourseBasicInfo course={course} courseCount ={course?.courseViews} edit={false} />
                 <CourseDetails course={course}/>
                 <ChapterList course={course} edit={false}/>
             </div>

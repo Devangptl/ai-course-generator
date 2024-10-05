@@ -15,13 +15,13 @@ const CourseCard = ({ course, refreshData, dissplayUser = false }) => {
             .returning({ id: CourseList?.id })
 
         const resChapter = await db.delete(Chapters)
-        .where(eq(Chapters.courseId,course?.courseId))
-        .returning({courseId:Chapters.courseId})
+            .where(eq(Chapters.courseId, course?.courseId))
+            .returning({ courseId: Chapters.courseId })
 
         if (res) {
             refreshData()
         }
-        if(resChapter){
+        if (resChapter) {
             refreshData()
         }
     }
@@ -31,10 +31,12 @@ const CourseCard = ({ course, refreshData, dissplayUser = false }) => {
             <Link href={"/course/" + course?.courseId}> <Image src={course?.courseBanner} width={300} height={200} alt='course banner' className='w-full h-[200px] object-cover rounded-lg ' /></Link>
             <div className='flex flex-col gap-2 p-2'>
                 <div className='flex items-center justify-between gap-2 text-lg font-medium '> <h2 className='truncate'>{course?.courseOutput?.course_name}</h2>
-                     {!dissplayUser&& <span> <DropdownOption handleOnDelete={() => { handleOnDelete() }}> <HiMiniEllipsisVertical /></DropdownOption> </span>}
+                    {!dissplayUser && <span> <DropdownOption handleOnDelete={() => { handleOnDelete() }}> <HiMiniEllipsisVertical /></DropdownOption> </span>}
                 </div>
-
-                <p className=''> {course?.category} </p>
+                <div className='flex items-center justify-between'>
+                    <p className=''> {course?.category} </p>
+                    <p className='text-primary'>{course?.courseViews} <span className='text-sm text-black'>views</span></p>
+                </div>
 
                 <div className='flex items-center justify-between'>
                     <h2 className='flex items-center gap-2 p-1 text-sm rounded-sm bg-cyan-50 text-primary'>
