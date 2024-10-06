@@ -52,7 +52,7 @@ const CourseCard = ({ course, refreshData, dissplayUser = false }) => {
                     dissplayUser &&
                     <div className='flex items-center gap-2'>
                         <Image className='w-8 h-8 rounded-full' src={course?.userProfileImage} width={35} height={35} alt={course?.userProfileImage} />
-                        <h2 className='text-sm'>{course?.userName}</h2>
+                        <h2 className='text-sm font-semibold capitalize'>{course?.userName.toLowerCase()}</h2>
                     </div>
                 }
             </div>

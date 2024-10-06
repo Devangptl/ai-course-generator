@@ -12,15 +12,18 @@ import React, { useEffect, useState } from 'react'
 const Course = ({ params }) => {
 
     const [course, setCourse] = useState([])
+    const [loading,setLoading]=useState(false)
     useEffect(() => {
         params && GetCourse()
     }, [params])
 
     const GetCourse = async () => {
+        setLoading(true)
         const res = await db.select().from(CourseList)
             .where(eq(CourseList?.courseId, params?.courseId))
 
         setCourse(res[0])
+        setLoading(false)
         // console.log(res);
     }
 
@@ -28,7 +31,7 @@ const Course = ({ params }) => {
         <div>
             <Header />
             <div className='px-10 md:px-20 lg:px-44'>
-                <CourseBasicInfo course={course} courseCount ={course?.courseViews} edit={false} />
+                <CourseBasicInfo loading={loading} course={course} courseCount ={course?.courseViews} edit={false} />
                 <CourseDetails course={course}/>
                 <ChapterList course={course} edit={false}/>
             </div>

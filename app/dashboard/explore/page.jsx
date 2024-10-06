@@ -38,7 +38,7 @@ const Explore = () => {
       <div className=''>
         <h2 className='text-xl font-bold '>Explore More Projects</h2>
         <p>Explore more projects build with AI by other users </p>
-        <div className='sticky flex items-center gap-3 p-4 transition-all bg-white shadow-md  top-16 bg-opacity-65 px-7'>
+        <div className='sticky flex items-center gap-3 p-4 transition-all bg-white shadow-md top-16 bg-opacity-65 px-7'>
           Filtter
           <div>
             <Select onValueChange={handleSelect}>
