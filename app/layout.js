@@ -2,6 +2,7 @@ import { Inter, Outfit } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider, GoogleOneTap } from "@clerk/nextjs";
 import { Toaster } from "sonner";
+import { ThemeProvider } from "./_components/theme-provide";
 
 const inter = Outfit({ subsets: ["latin"] });
 
@@ -12,18 +13,30 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <ClerkProvider
-      appearance={{
-        layout: {
-          unsafe_disableDevelopmentModeWarnings: true,
-        },
-      }}
-    >
-      <html lang="en">
+
+
+
+    <html lang="en">
+        <body className={inter.className} >
+      <ClerkProvider
+        appearance={{
+          layout: {
+            unsafe_disableDevelopmentModeWarnings: true,
+          },
+        }}
+      >
         <GoogleOneTap />
-        <body className={inter.className}>{children}</body>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            {children}
         <Toaster position="top-right" richColors />
-      </html>
-    </ClerkProvider>
+          </ThemeProvider>
+      </ClerkProvider>
+        </body>
+    </html>
   );
 }

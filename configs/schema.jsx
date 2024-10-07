@@ -15,7 +15,8 @@ export const CourseList = pgTable('courseList', {
     userProfileImage:varchar('userProfileImage'),
     courseBanner:varchar('courseBanner').default('/placeholder.png'),
     publish:boolean('publish').default(false),
-    courseViews:integer('courseViews').default(0).notNull()
+    courseViews:integer('courseViews').default(0).notNull(),
+    likes:integer('likes').default(0).notNull(),
 })
 
 
@@ -35,6 +36,7 @@ export const Comments = pgTable('comments',{
     content:varchar('content').notNull(),
     createdAt:timestamp('createdAt').notNull().defaultNow(),
     likes:integer('likes').notNull().default(0),
+    
 })
 
 export const CommentReplies = pgTable('commentReplies',{

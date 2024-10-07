@@ -75,7 +75,7 @@ const UserResponse = ({ courseId }) => {
     return (
         <div>
             <Sheet>
-                <SheetTrigger><FaRegComment /></SheetTrigger>
+                <SheetTrigger className='text-primary' ><FaRegComment /></SheetTrigger>
                 <SheetContent>
                     <SheetHeader className={"mt-[-10px] pb-[10px]"}>
                         <SheetTitle>Response</SheetTitle>
